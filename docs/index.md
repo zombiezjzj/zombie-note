@@ -7,7 +7,7 @@ hero:
   text: 
   tagline: 
   image:
-    src: /logo.gif
+    src: /logo.jpg
     alt: zombie
   actions:
     - text: 前端导航
@@ -16,10 +16,10 @@ hero:
       link: /fe/es6/
       theme: alt
     - text: 后端
-      link: /back
+      link: /back/
       theme: alt
     - text: 运维
-      link: /operation
+      link: /operation/
       theme: alt
     - text: 手机壁纸
       link: http://www.zhaojing58.top/picture

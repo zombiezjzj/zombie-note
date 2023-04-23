@@ -43,7 +43,8 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
       collapsed: false,
       items: [
         { text: '模块化', link: '/fe/concept/module' },
-        { text: '前端页面渲染方式', link: '/fe/concept/page-rendering' }
+        { text: '前端页面渲染方式', link: '/fe/concept/page-rendering' },
+        { text: '三大前端框架比较', link: '/fe/goodOrBad/compare' }
       ]
     },
     {
@@ -51,61 +52,34 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
       link: '/fe/coding/'
     }
   ],
-  '/analysis/': [
+  '/back/': [
     {
-      text: '工具库',
-      // collapsed: false,
+      text: '后端',
+      collapsed: false,
       items: [
-        { text: 'only-allow', link: '/analysis/utils/only-allow' },
-        { text: 'clsx', link: '/analysis/utils/clsx' }
+        { text: 'csdn', link: '/back/java/csdn' },
+        { text: 'hutool', link: '/back/java/hutool' }
       ]
     }
   ],
-  '/workflow/': [
+  '/operation/': [
     {
-      text: '常用工具/方法',
+      text: '运维',
       collapsed: false,
       items: [
-        { text: '工具库整理', link: '/workflow/utils/library' },
-        { text: '常用正则整理', link: '/workflow/utils/regexp' },
-        { text: '常用方法整理', link: '/workflow/utils/function' }
+        { text: 'docker', collapsed: false,
+          items: [
+            { text: 'elasticsearch+kibana+filebeat', link: '/operation/docker/es' },
+            { text: 'wordpress', link: '/operation/docker/wordpress' },
+          ] 
+        },
+        { text: '文件服务器',
+          items: [
+            { text: 'fastdfs', link: '/operation/fastdfs/fastdfs' },
+          ] 
+        },
       ]
     },
-    {
-      text: 'CSS 相关',
-      collapsed: false,
-      items: [
-        { text: 'CSS 语法', link: '/workflow/css/spec' },
-        { text: 'CSS 奇淫技巧', link: '/workflow/css/tricks' },
-        { text: 'Sass 常用技巧', link: '/workflow/sass/' }
-      ]
-    },
-    {
-      text: 'Vue 相关',
-      link: '/workflow/vue/'
-    },
-    {
-      text: 'Node 相关',
-      // collapsed: false,
-      items: [{ text: 'npm 常用命令', link: '/workflow/node/npm' }]
-    },
-    {
-      text: '终端相关',
-      collapsed: false,
-      items: [
-        { text: 'Zsh 配置', link: '/workflow/terminal/zsh' },
-        { text: '命令行工具', link: '/workflow/terminal/toolkit' },
-        { text: 'Shell 命令', link: '/workflow/terminal/shell' }
-      ]
-    },
-    {
-      text: 'Git 相关',
-      collapsed: false,
-      items: [
-        { text: 'Git 相关技巧', link: '/workflow/git/' },
-        { text: 'Git 命令清单', link: '/workflow/git/command' }
-      ]
-    }
   ],
   '/efficiency/': [
     {

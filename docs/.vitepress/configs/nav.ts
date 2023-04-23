@@ -31,7 +31,7 @@ export const nav: DefaultTheme.Config['nav'] = [
     text: '后端',
     items: [
       { text: 'csdn', link: '/back/java/csdn' },
-      { text: 'hutool', link: '/back/java/hutool' },
+      { text: 'hutool', link: '/back/java/hutool' }
     ],
     activeMatch: '^/back'
   },
@@ -42,9 +42,15 @@ export const nav: DefaultTheme.Config['nav'] = [
         text: 'docker',
         items: [
           { text: 'docker 部署 elasticsearch+kibana+filebeat', link: '/operation/docker/es' },
-          { text: 'docker 部署 wordpress', link: '/operation/docker/wordpress' },
+          { text: 'docker 部署 wordpress', link: '/operation/docker/wordpress' }
         ]
       },
+      {
+        text: '文件服务器',
+        items: [
+          { text: 'fastdfs', link: '/operation/fastdfs/fastdfs' },
+        ]
+      }
     ],
     activeMatch: '^/operation'
   },
