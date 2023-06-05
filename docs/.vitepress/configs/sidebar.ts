@@ -62,24 +62,29 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
       ]
     }
   ],
+  '/java/': [
+    {
+      text: 'Java',
+      collapsed: false,
+      items: [{ text: 'Java工程师成神之路', link: '/java/menu' }]
+    }
+  ],
   '/operation/': [
     {
       text: '运维',
       collapsed: false,
       items: [
-        { text: 'docker', collapsed: false,
+        {
+          text: 'docker',
+          collapsed: false,
           items: [
             { text: 'elasticsearch+kibana+filebeat', link: '/operation/docker/es' },
-            { text: 'wordpress', link: '/operation/docker/wordpress' },
-          ] 
+            { text: 'wordpress', link: '/operation/docker/wordpress' }
+          ]
         },
-        { text: '文件服务器',
-          items: [
-            { text: 'fastdfs', link: '/operation/fastdfs/fastdfs' },
-          ] 
-        },
+        { text: '文件服务器', items: [{ text: 'fastdfs', link: '/operation/fastdfs/fastdfs' }] }
       ]
-    },
+    }
   ],
   '/efficiency/': [
     {

@@ -2,6 +2,7 @@ import type { DefaultTheme } from 'vitepress'
 
 export const nav: DefaultTheme.Config['nav'] = [
   { text: '前端导航', link: '/nav', activeMatch: '^/nav' },
+  { text: 'Java工程师成神之路', link: '/java/menu', activeMatch: '^/java' },
   {
     text: '前端',
     items: [
@@ -47,9 +48,7 @@ export const nav: DefaultTheme.Config['nav'] = [
       },
       {
         text: '文件服务器',
-        items: [
-          { text: 'fastdfs', link: '/operation/fastdfs/fastdfs' },
-        ]
+        items: [{ text: 'fastdfs', link: '/operation/fastdfs/fastdfs' }]
       }
     ],
     activeMatch: '^/operation'

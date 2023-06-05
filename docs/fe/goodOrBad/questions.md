@@ -1,6 +1,4 @@
-2023/4/21 16:33 VUE开发相关问题汇总 - Powered by MinDoc
-doc.bpmhome.cn/docs/ibps_v3_develop/ibps_v3_develop-1bml9a3am9j9t 1/15
-VUE开发相关问题汇总
+# VUE开发相关问题汇总
 1. js
 2. es6
 3. vue
@@ -9,10 +7,10 @@ VUE开发相关问题汇总
 6. element-ui
 7. ibps-admin-ui
 有以下方案:推荐第一种方案
-1) npm : 切换淘宝数据源【推荐】
-2) cnpm : 国内对npm的镜像版本
+1 npm : 切换淘宝数据源【推荐】
+2 cnpm : 国内对npm的镜像版本
 // cnpm 的大多命令跟 npm 的是一致的,比如安装,卸载这些复制代码
-3) yarn 和 npm 改源大法
+3 yarn 和 npm 改源大法
 使用 nrm 模块 : www.npmjs.com/package/nrm (http://www.npmjs.com/package/nrm)
 9.1 平台学习路线
 9.1.1 Q:学习ibps-admin-ui需要具备的以下知识
@@ -41,7 +39,7 @@ windows的小伙伴都装上:
 这种情况一般报错信息可以看到是哪个包抛出的信息.
 一般卸载这个模块,安装重新安装下即可.
 最起码得在本地搭个服务器才能访问好么!!
-参考文章《生产部署》
+<!-- 参考文章《生产部署》
 传送门:一篇不大靠谱的nginx 1.11.10配置文件
 • 自己用 webpack搭脚手架的都不用我说了;
 • Vue-cli 里面的 webpack 配置: config/index.js
@@ -121,30 +119,30 @@ doc.bpmhome.cn/docs/ibps_v3_develop/ibps_v3_develop-1bml9a3am9j9t 4/15
 • 箭头函数: 会强行关联当前运行区域为 this 的上下文;
 this的知识, 读”<<你不知道的 JS 系列>>”最为合适了,里面讲的很清楚
 9.5.2 Q:我给组件内的原生控件添加事件,怎么不生效了!!!
-<! 比如用了第三方框架,或者 些封装的内置组件; 然后想绑定事件 >
+<! 比如用了第三方框架,或者 些封装的内置组件; 然后想绑定事件 > -->
 <!--// 错误例子1-->
-<el-input placeholder="请输入特定消费金额 " @mouseover="test()"></el-input>
+<!-- <el-input placeholder="请输入特定消费金额 " @mouseover="test()"></el-input> -->
 <!--// 错误例子2-->
-<router-link :to="item.menuUrl" @click="toggleName=''">
+<!-- <router-link :to="item.menuUrl" @click="toggleName=''">
 <i :class="['fzicon',item.menuIcon]"></i>
 <span>{{item.menuName}}</span>
-</router-link>
+</router-link> -->
 <!--上面的两个例子都没法触发事件!!!-->
 <!--究其原因,少了一个修饰符 .native-->
-<router-link :to="item.menuUrl" @click.native="toggleName=''">
+<!-- <router-link :to="item.menuUrl" @click.native="toggleName=''">
 <i :class="['fzicon',item.menuIcon]"></i>
 <span>{{item.menuName}}</span>
-</router-link>
+</router-link> -->
 <!--明明官方文档有的,一堆人不愿意去看-->
 <!--https://cn.vuejs.org/v2/guide/components.html# 给组件绑定原生事件-->复制代码
-9.5.3 Q:我在函数内用了this.xxx=,为什么抛出Cannot set property
+<!-- 9.5.3 Q:我在函数内用了this.xxx=,为什么抛出Cannot set property
 ‘xxx’ of undefined;
 let that = this;(let是 es6, es5用 var)
 
 2023/4/21 16:33 VUE开发相关问题汇总 - Powered by MinDoc
 doc.bpmhome.cn/docs/ibps_v3_develop/ibps_v3_develop-1bml9a3am9j9t 5/15
 就拿这两个例子来说吧.
-• @click (mailto:`<a href=).prevent"">`@click.prevent : 事件+修饰符 , 作用就是点击但又阻止默认
+• @click (mailto:`<a href=).prevent>`@click.prevent : 事件+修饰符 , 作用就是点击但又阻止默认
 行为
 • v-demo.a.b : 自定义指令+修饰符. 具体看你什么指令了,修饰符的作用大多是给事件增加一些确
 切的拓展功能
@@ -167,8 +165,8 @@ doc.bpmhome.cn/docs/ibps_v3_develop/ibps_v3_develop-1bml9a3am9j9t 5/15
 单组件开发模式下,请确认是否开启了 CSS模块化功能!!
 也就是scoped(vue-cli 里面配置了,只要加入这个属性就自动启用)
 为什么不能继承或者覆写呢,那时因为每个类或者 id 乃至标签都会给自动在css后面添加hash!
-比如
-// 写的时候是这个
+比如 -->
+<!-- // 写的时候是这个
 .trangle{}
 9.5.4 Q:我看一些Vue教程有这么些写法,是什么意思@click
 (https://github.com/click).prevent,v-demo.a.b;
@@ -211,8 +209,8 @@ property ‘xxx’ of undefined”
 9.5.13 Q:Unexpected token: operator xxxxx
 9.5.14 Q:CSSbackground引入图片打包后,访问路径错误
 9.5.15 Q:Failed to mount component: template or render
-function not defined
-
+function not defined -->
+<!-- 
 2023/4/21 16:33 VUE开发相关问题汇总 - Powered by MinDoc
 doc.bpmhome.cn/docs/ibps_v3_develop/ibps_v3_develop-1bml9a3am9j9t 7/15
 组件没有正确引入或者正确使用,依次确认
@@ -226,13 +224,13 @@ axios默认是 json 格式提交,确认后台是否做了对应的支持;
 // 具体可以看看我 axios 封装那篇文章
 这种问题一般就是组件内的 props 类型已经设置了接受的范围类型,
 而你传递的值却又不是它需要的类型,写代码严谨些 OK?
-9.5.16 Q:Unknown custom element: <xxx> - did you register the
+9.5.16 Q:Unknown custom element:  - did you register the
 component correctly?
 9.5.17 Q: axios的 post 请求后台接受不到!
 npm install qs -S
 co g. et od post
-) {
-// 序列化
+ { -->
+<!-- // 序列化
 config.data = qs.stringify(config.data); // ***** 这里转义
 }
 // 若是有做鉴权token , 就给头部带上token
@@ -249,12 +247,11 @@ message: error,
 type: "error.data.error.message"
 });
 return Promise.reject(error.data.error.message);
-}
-);
+};
 9.5.18 Q:Invalid prop: type check failed for prop “xxx”.
 Expected Boolean, got String.
-
-2023/4/21 16:33 VUE开发相关问题汇总 - Powered by MinDoc
+ -->
+<!-- 2023/4/21 16:33 VUE开发相关问题汇总 - Powered by MinDoc
 doc.bpmhome.cn/docs/ibps_v3_develop/ibps_v3_develop-1bml9a3am9j9t 8/15
 出门左拐,ES6+(ES2015)的基础去过一遍..
 上面依次:数组解构,对象解构,对象风格函数,对象解构赋值传递
@@ -327,7 +324,7 @@ o 对于下拉菜单,折叠菜单这些数据基本不怎么变动.用这个最�
 9.5.27 Q:”有 Vue + Vue Router + Vuex”或什么”express + vue +
 mongodb”的项目学习么
 9.5.28 Q: 什么时候用v-if,什么用 v-show!
-9.5.29 Q: <template> 是什么,html5的标签么?
+9.5.29 Q: template 是什么,html5的标签么?
 
 2023/4/21 16:33 VUE开发相关问题汇总 - Powered by MinDoc
 doc.bpmhome.cn/docs/ibps_v3_develop/ibps_v3_develop-1bml9a3am9j9t 10/15
@@ -494,5 +491,4 @@ doc.bpmhome.cn/docs/ibps_v3_develop/ibps_v3_develop-1bml9a3am9j9t 14/15
 9.6.10 Q: Vue SPA 没法做优化(SEO)!有解决方案么
 9.6.11 Q:想要 mock 数据,直接请求 json文件 为什么不行!
 
-2023/4/21 16:33 VUE开发相关问题汇总 - Powered by MinDoc
-doc.bpmhome.cn/docs/ibps_v3_develop/ibps_v3_develop-1bml9a3am9j9t 15/15
+2023/4/21 16:33 VUE开发相关问题汇总  -->
