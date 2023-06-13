@@ -1,8 +1,3 @@
-## Java内存模型
-
-> 本文是[《成神之路系列文章》](/catalog/catalog.md)中的一篇，主要是关于JVM的一些介绍。
-> 
-> 持续更新中
 
 ### Java内存模型
 
@@ -34,7 +29,6 @@
 
 [Java 理论与实践: 修复 Java 内存模型，第 2 部分][15]（拓展阅读）
 
- [1]: http://www.hollischuang.com/archives/1001
  [2]: http://www.hollischuang.com/archives/2509
  [3]: http://www.hollischuang.com/archives/2550
  [4]: http://www.hollischuang.com/archives/2662

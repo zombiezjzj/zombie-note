@@ -1,5 +1,3 @@
-
-
 ### 一、各种语言中的编译器是如何处理泛型的
 
 通常情况下，一个编译器处理泛型有两种方式：
@@ -36,7 +34,6 @@
         System.out.println(map.get("age"));  
     }  
 
-
 **反编译后的code 1:**
 
     public static void main(String[] args) {  
@@ -46,7 +43,6 @@
         System.out.println((String) map.get("name"));  
         System.out.println((String) map.get("age"));  
     }  
-
 
 我们发现泛型都不见了，程序又变回了Java泛型出现之前的写法，泛型类型都变回了原生类型，
 
@@ -73,7 +69,6 @@
             return this.value - that.value;
         }
     }
-
 
 **反编译后的code 2:**
 
@@ -120,7 +115,6 @@
         }
     }
 
-
 **反编译后的code 3:**
 
     public class Collections
@@ -142,7 +136,6 @@
         }
     }
 
-
 第2个泛型类`Comparable <A>`擦除后 A被替换为最左边界`Object`。`Comparable<NumericValue>`的类型参数`NumericValue`被擦除掉，但是这直 接导致`NumericValue`没有实现接口`Comparable的compareTo(Object that)`方法，于是编译器充当好人，添加了一个**桥接方法**。 第3个示例中限定了类型参数的边界`<A extends Comparable<A>>A`，A必须为`Comparable<A>`的子类，按照类型擦除的过程，先讲所有的类型参数 ti换为最左边界`Comparable<A>`，然后去掉参数类型`A`，得到最终的擦除后结果。
 
 * * *
@@ -162,12 +155,11 @@
         }  
     }  
 
-
-上面这段代码，有两个重载的函数，因为他们的参数类型不同，一个是`List<String>`另一个是`List<Integer>` ，但是，这段代码是编译通不过的。因为我们前面讲过，参数`List<Integer>`和`List<String>`编译之后都被擦除了，变成了一样的原生类型List<e>，擦除动作导致这两个方法的特征签名变得一模一样。</e>
+上面这段代码，有两个重载的函数，因为他们的参数类型不同，一个是`List<String>`另一个是`List<Integer>` ，但是，这段代码是编译通不过的。因为我们前面讲过，参数`List<Integer>`和`List<String>`编译之后都被擦除了，变成了一样的原生类型List，擦除动作导致这两个方法的特征签名变得一模一样。
 
 **二、当泛型遇到catch:**
 
-如果我们自定义了一个泛型异常类GenericException<t>，那么，不要尝试用多个catch取匹配不同的异常类型，例如你想要分别捕获GenericException<String>、GenericException<Integer>，这也是有问题的。</Integer></String></t>
+如果我们自定义了一个泛型异常类GenericException，那么，不要尝试用多个catch取匹配不同的异常类型，例如你想要分别捕获GenericException、GenericException，这也是有问题的。
 
 三、当泛型内包含静态变量
 
@@ -185,7 +177,6 @@
         public void nothing(T x){}
     }
 
-
 答案是——2！由于经过类型擦除，所有的泛型类实例都关联到同一份字节码上，泛型类的所有静态变量是共享的。
 
 * * *
@@ -194,5 +185,3 @@
 
 1\.虚拟机中没有泛型，只有普通类和普通方法,所有泛型类的类型参数在编译时都会被擦除,泛型类并没有自己独有的Class类对象。比如并不存在`List<String>`.class或是`List<Integer>.class`，而只有`List.class`。 2.创建泛型对象时请指明类型，让编译器尽早的做参数检查（**Effective Java，第23条：请不要在新代码中使用原生态类型**） 3.不要忽略编译器的警告信息，那意味着潜在的`ClassCastException`等着你。 4.静态变量是被泛型类的所有实例所共享的。对于声明为`MyClass<T>`的类，访问其中的静态变量的方法仍然是 `MyClass.myStaticVar`。不管是通过`new MyClass<String>`还是`new MyClass<Integer>`创建的对象，都是共享一个静态变量。 5.泛型的类型参数不能用在`Java`异常处理的`catch`语句中。因为异常处理是由JVM在运行时刻来进行的。由于类型信息被擦除，`JVM`是无法区分两个异常类型`MyException<String>`和`MyException<Integer>`的。对于`JVM`来说，它们都是 `MyException`类型的。也就无法执行与异常对应的`catch`语句。
 
-[1]: http://docs.oracle.com/javase/tutorial/java/generics/erasure.html
-[2]: /archives/255

@@ -1,4 +1,4 @@
-阻塞与非阻塞描述的是调用者的
+ 阻塞与非阻塞描述的是调用者的
 
 如A调用B：
 
@@ -6,10 +6,9 @@
 
 如果是非阻塞，A在发出调用后，不需要等待，可以去做自己的事情。
 
-
 ### 同步，异步 和 阻塞，非阻塞之间的区别
 
-[同步、异步](/basics/java-basic/synchronized-vs-asynchronization.md)，是描述被调用方的。
+[同步、异步](synchronized-vs-asynchronization.md)，是描述被调用方的。
 
 阻塞，非阻塞，是描述调用方的。
 

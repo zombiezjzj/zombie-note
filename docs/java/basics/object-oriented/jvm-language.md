@@ -70,8 +70,9 @@ Jython，是一个用Java语言写的Python解释器。Jython能够用Python语�
 
 #### Hello World In Jython
 
-```py
-print "Hello, world!"
+```
+    py
+    print "Hello, world!"
 ```
 
 ### Fantom
@@ -82,10 +83,11 @@ Fantom是与Groovy以及JRuby差不多的一样面向对 象的编程语言，�
 
 #### Hello World In Fantom
 
-```fantom
-class Hello {
-    static Void main() { echo("Hello, world!") }
-}
+```
+    fantom
+    class Hello {
+        static Void main() { echo("Hello, world!") }
+    }
 ```
 
 ### Clojure
@@ -96,9 +98,10 @@ Clojure是Lisp编程语言在Java平台上的现代、函数式及动态方言�
 
 #### Hello World In Clojure
 
-```clojure
-(defn -main [& args]
-    (println "Hello, World!"))
+```
+    clojure
+    (defn -main [& args]
+        (println "Hello, World!"))
 ```
 
 ### Rhino
@@ -109,8 +112,9 @@ Rhino的特点是为JavaScript加了个壳，然后嵌入到Java中，这样能�
 
 #### Hello World In Rhino
 
-```js
-print('Hello, world!')
+```
+    js
+    print('Hello, world!')
 ```
 
 ### Ceylon
@@ -119,10 +123,11 @@ Ceylon是一种面向对象，强烈静态类型的编程语言，强调不变�
 
 #### Hello World In Ceylon
 
-```ceylon
-shared void run() {
-    print("Hello, world!");
-}
+```
+    ceylon
+    shared void run() {
+        print("Hello, world!");
+    }
 ```
 
 ### 总结

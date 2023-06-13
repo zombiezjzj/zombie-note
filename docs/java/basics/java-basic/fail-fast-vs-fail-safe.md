@@ -9,6 +9,7 @@
 其实，这是一种理念，说白了就是在做系统设计的时候先考虑异常情况，一旦发生异常，直接停止并上报。
 
 举一个最简单的fail-fast的例子：
+```
 
     public int divide(int divisor,int dividend){
         if(divisor == 0){
@@ -16,7 +17,7 @@
         }
         return dividend/divisor;
     }
-    
+```
 
 上面的代码是一个对两个整数做除法的方法，在divide方法中，我们对除数做了个简单的检查，如果其值为0，那么就直接抛出一个异常，并明确提示异常原因。这其实就是fail-fast理念的实际应用。
 
@@ -41,6 +42,7 @@ CMException，当方法检测到对象的并发修改，但不允许这种修改
 在Java中， 如果在foreach 循环里对某些集合元素进行元素的 remove/add 操作的时候，就会触发fail-fast机制，进而抛出CMException。
 
 如以下代码：
+```
 
     List<String> userNames = new ArrayList<String>() {{
         add("Hollis");
@@ -56,21 +58,23 @@ CMException，当方法检测到对象的并发修改，但不允许这种修改
     }
     
     System.out.println(userNames);
-    
+```
 
 以上代码，使用增强for循环遍历元素，并尝试删除其中的Hollis字符串元素。运行以上代码，会抛出以下异常：
+```
 
     Exception in thread "main" java.util.ConcurrentModificationException
     at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:909)
     at java.util.ArrayList$Itr.next(ArrayList.java:859)
     at com.hollis.ForEach.main(ForEach.java:22)
-    
+```
 
 同样的，读者可以尝试下在增强for循环中使用add方法添加元素，结果也会同样抛出该异常。
 
 在深入原理之前，我们先尝试把foreach进行解语法糖，看一下foreach具体如何实现的。
 
 我们使用[jad][1]工具，对编译后的class进行反编译，得到以下代码：
+```
 
     public static void main(String[] args) {
         // 使用ImmutableList初始化一个List
@@ -92,13 +96,14 @@ CMException，当方法检测到对象的并发修改，但不允许这种修改
         } while(true);
         System.out.println(userNames);
     }
-    
+```
 
 可以发现，foreach其实是依赖了while循环和Iterator实现的。
 
 ### 异常原理
 
 通过以上代码的异常堆栈，我们可以跟踪到真正抛出异常的代码是：
+```
 
     java.util.ArrayList$Itr.checkForComodification(ArrayList.java:909)
     
@@ -109,13 +114,14 @@ CMException，当方法检测到对象的并发修改，但不允许这种修改
         if (modCount != expectedModCount)
             throw new ConcurrentModificationException();
     }
-    
+```
 
 如上，在该方法中对modCount和expectedModCount进行了比较，如果二者不相等，则抛出CMException。
 
 那么，modCount和expectedModCount是什么？是什么原因导致他们的值不相等的呢？
 
 modCount是ArrayList中的一个成员变量。它表示该集合实际被修改的次数。
+```
 
     List<String> userNames = new ArrayList<String>() {{
         add("Hollis");
@@ -123,13 +129,13 @@ modCount是ArrayList中的一个成员变量。它表示该集合实际被修改
         add("HollisChuang");
         add("H");
     }};
-    
+```
 
 当使用以上代码初始化集合之后该变量就有了。初始值为0。
 
 expectedModCount 是 ArrayList中的一个内部类——Itr中的成员变量。
 
-    Iterator iterator = userNames.iterator();
+    `Iterator iterator = userNames.iterator();`
     
 
 以上代码，即可得到一个 Itr类，该类实现了Iterator接口。
@@ -139,7 +145,7 @@ expectedModCount表示这个迭代器预期该集合被修改的次数。其值�
 那么，接着我们看下userNames.remove(userName);方法里面做了什么事情，为什么会导致expectedModCount和modCount的值不一样。
 
 通过翻阅代码，我们也可以发现，remove方法核心逻辑如下：
-
+```
     private void fastRemove(int index) {
         modCount++;
         int numMoved = size - index - 1;
@@ -148,7 +154,7 @@ expectedModCount表示这个迭代器预期该集合被修改的次数。其值�
                              numMoved);
         elementData[--size] = null; // clear to let GC do its work
     }
-    
+```
 
 可以看到，它只修改了modCount，并没有对expectedModCount做任何操作。
 
@@ -171,7 +177,7 @@ expectedModCount表示这个迭代器预期该集合被修改的次数。其值�
 java.util.concurrent包下的容器都是fail-safe的，可以在多线程下并发使用，并发修改。同时也可以在foreach中进行add/remove 。
 
 我们拿CopyOnWriteArrayList这个fail-safe的集合类来简单分析一下。
-
+```
     public static void main(String[] args) {
         List<String> userNames = new CopyOnWriteArrayList<String>() {{
             add("Hollis");
@@ -190,7 +196,7 @@ java.util.concurrent包下的容器都是fail-safe的，可以在多线程下并
     
         System.out.println(userNames);
     }
-    
+```
 
 以上代码，使用CopyOnWriteArrayList代替了ArrayList，就不会发生异常。
 
@@ -199,7 +205,7 @@ fail-safe集合的所有对集合的修改都是先拷贝一份副本，然后�
 所以，CopyOnWriteArrayList中的迭代器在迭代的过程中不需要做fail-fast的并发检测。（因为fail-fast的主要目的就是识别并发，然后通过异常的方式通知用户）
 
 但是，虽然基于拷贝内容的优点是避免了ConcurrentModificationException，但同样地，迭代器并不能访问到修改后的内容。如以下代码：
-
+```
     public static void main(String[] args) {
         List<String> userNames = new CopyOnWriteArrayList<String>() {{
             add("Hollis");
@@ -222,16 +228,16 @@ fail-safe集合的所有对集合的修改都是先拷贝一份副本，然后�
             System.out.println(it.next());
         }
     }
-    
+```
 
 我们得到CopyOnWriteArrayList的Iterator之后，通过for循环直接删除原数组中的值，最后在结尾处输出Iterator，结果发现内容如下：
-
+```
     [hollis, HollisChuang, H]
     Hollis
     hollis
     HollisChuang
     H
-    
+```
 
 迭代器遍历的是开始遍历那一刻拿到的集合拷贝，在遍历期间原集合发生的修改迭代器是不知道的。
 
@@ -246,11 +252,11 @@ CopyOnWrite容器即写时复制的容器。通俗的理解是当我们往一个
 CopyOnWriteArrayList中add/remove等写方法是需要加锁的，目的是为了避免Copy出N个副本出来，导致并发写。
 
 但是，CopyOnWriteArrayList中的读方法是没有加锁的。
-
+```
     public E get(int index) {
         return get(getArray(), index);
     }
-    
+```
 
 这样做的好处是我们可以对CopyOnWrite容器进行并发的读，当然，这里读到的数据可能不是最新的。因为写时复制的思想是通过延时更新的策略来实现数据的最终一致性的，并非强一致性。
 
